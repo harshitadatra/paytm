@@ -30,8 +30,8 @@ export const Users = () => {
         ></input>
       </div>
       <div>
-        {users.map((user) => (
-          <User user={user} />
+        {users.map((user, idx) => (
+          <User user={user} key={idx} />
         ))}
       </div>
     </>
