@@ -1,9 +1,12 @@
 // backend/db.js
 
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const DB_URL = process.env.DB_URL;
 
-mongoose.connect(DB_URL);
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Create a Schema for Users
 const userSchema = new mongoose.Schema({
