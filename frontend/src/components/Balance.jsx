@@ -7,7 +7,7 @@ export const Balance = ({ value }) => {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:3000/api/v1/account/balance",
+        "https://paytm-pzf0.onrender.com/api/v1/account/balance",
 
         {
           headers: {
