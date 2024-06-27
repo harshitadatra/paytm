@@ -6,13 +6,16 @@ import { InputBox } from "../components/InputBox";
 import { SubHeading } from "../components/SubHeading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
 
   async function handleSignin() {
+    setShowLoader(true);
     try {
       const response = await axios.post(
         "https://paytm-pzf0.onrender.com/api/v1/user/signin",
@@ -26,10 +29,11 @@ export const Signin = () => {
       // console.log(response.ok);
       if (response.status !== 200) {
         alert(`HTTP error! status ${res.status}`);
-        // setShowLoader(false);
+        setShowLoader(false);
         return;
       }
 
+      setShowLoader(false);
       localStorage.setItem("token", response.data.token);
       navigate("/dashboard");
     } catch (err) {
@@ -66,6 +70,11 @@ export const Signin = () => {
           />
         </div>
       </div>
+      {showLoader && (
+        <div className="absolute w-full h-full flex items-center justify-center bg-gray-200 opacity-80">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };
