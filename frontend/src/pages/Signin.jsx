@@ -14,15 +14,17 @@ export const Signin = () => {
   const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
 
-  async function handleSignin() {
+  async function handleSignin(isTestUser) {
     setShowLoader(true);
     try {
       const response = await axios.post(
         "https://paytm-pzf0.onrender.com/api/v1/user/signin",
-        {
-          username,
-          password,
-        }
+        isTestUser
+          ? { username: "test_user@gmail.com", password: "123456" }
+          : {
+              username,
+              password,
+            }
       );
 
       // console.log("response sign in ", response);
@@ -61,8 +63,16 @@ export const Signin = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="pt-4">
-            <Button label={"Sign in"} onClick={handleSignin} on />
+            <Button label={"Sign in"} onClick={() => handleSignin(false)} on />
           </div>
+          <div className="pt-4">
+            <Button
+              label={"Guest Credentials"}
+              onClick={() => handleSignin(true)}
+              on
+            />
+          </div>
+
           <BottomWarning
             label={"Don't have an account?"}
             buttonText={"Sign up"}
